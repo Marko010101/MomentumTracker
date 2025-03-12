@@ -1,7 +1,27 @@
 import { createGlobalStyle } from "styled-components";
+import "@fontsource/firago";
+import "@fontsource/firago/400.css";
+import "@fontsource/firago/600.css";
 
 const GlobalStyles = createGlobalStyle`
+
+@font-face {
+    font-family: "Fredoka One";
+    src: url("/src/assets/fonts/FredokaOne-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
 :root {
+  --color-white: #FFFFFF;
+  --color-text: #212529;
+  --color-text-dark: #0D0F10;
+  --color-purple: #8338EC;
+  --color-soft-purple:#B588F4;
+  --color-gray: #CED4DA;
+  --color-gray-light: #DEE2E6;
+  --color-midnight-blue: #021526CC;
+
 
   /* Font weights */
   --font-weight-extra-light: 200;
@@ -13,12 +33,12 @@ const GlobalStyles = createGlobalStyle`
   --font-weight-extra-bold: 800;
 
 
-  --font-size-mini: 1rem;
-  --font-size-tiny: 1.2rem;
-  --font-size-small: 1.4rem;
-  --font-size-medium: 1.6rem;
-  --font-size-big: 1.8rem;
-  --font-size-huge: 2.2rem;
+  --font-size-mini: 1.4rem;
+  --font-size-tiny: 1.6rem;
+  --font-size-small: 1.8rem;
+  --font-size-medium: 2rem;
+  --font-size-big: 2.4rem;
+  --font-size-huge: 3.4rem;
 
 }
 
@@ -38,10 +58,12 @@ html {
 }
 
 body {
-
-  transition: color 0.3s, background-color 0.3s;
+  font-family: "Firago", sans-serif;
+  transition: color 0.2s, background-color 0.2s;
+  color: var(--color-text); 
+  background-color: var(--color-white);
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 100%;
   font-size: 1.6rem;
 }
 

@@ -1,11 +1,14 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import GlobalStyles from "./styles/GlobalStyles";
-import { Toaster } from "react-hot-toast";
+import Loader from "./components/ui/Loader.jsx";
 
-const Home = lazy(() => import("./pages/Home.jsx"));
+const TaskListPage = lazy(() => import("./pages/TaskListPage.jsx"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound.jsx"));
+const AppLayout = lazy(() => import("./components/AppLayout.jsx"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,12 +24,14 @@ function App() {
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <BrowserRouter>
         <GlobalStyles />
-        {/* <Suspense fallback={<SpinnerFullPage />}> */}
-        <Routes>
-          <Route path="/" index element={<Home />} />
-          {/* <Route path="*" element={<PageNotFound />} /> */}
-        </Routes>
-        {/* </Suspense> */}
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route path="/" index element={<TaskListPage />} />
+            </Route>
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
       <Toaster
         position="top-center"
