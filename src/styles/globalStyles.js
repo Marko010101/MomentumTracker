@@ -150,28 +150,7 @@ img {
 
 
 
-/* @media (max-width: 1200px) {
-  html {
-    font-size: 60%;
-  }
-}
-@media (max-width: 992px) {
-  html {
-    font-size: 57.5%;
-  }
-}
 
-@media (max-width: 768px) {
-  html {
-    font-size: 55%;
-  }
-}
-
-@media (max-width: 576px) {
-  html {
-    font-size: 52.5%;
-  }
-} */
 
 `;
 

@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import GlobalStyles from "./styles/GlobalStyles";
+import GlobalStyles from "./styles/globalStyles.js";
 import Loader from "./components/ui/Loader.jsx";
 
 const TaskListPage = lazy(() => import("./pages/TaskListPage.jsx"));
