@@ -16,11 +16,7 @@ const FilteredList = ({ taskList }) => {
         <TaskColumn key={status}>
           <StyledH3 status={status}>{status}</StyledH3>
           {tasks.map((task) => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              color={STATUS_COLORS[status].color} // Pass color here
-            />
+            <TaskCard key={task.id} task={task} color={STATUS_COLORS[status].color} />
           ))}
         </TaskColumn>
       ))}

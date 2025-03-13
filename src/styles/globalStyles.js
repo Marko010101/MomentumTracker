@@ -72,7 +72,7 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 
   /* Creating animations for dark mode */
-  transition: background-color 0.2s, border 0.2s;
+  /* transition: color 0.2s , background-color 0.2s, border-width 0.2s, padding 0.2s; */
 }
 
 html {
@@ -81,7 +81,6 @@ html {
 
 body {
   font-family: "Firago", sans-serif;
-  transition: color 0.2s, background-color 0.2s;
   color: var(--color-text); 
   background-color: var(--color-white);
   min-height: 100vh;
