@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import "@fontsource/firago";
 import "@fontsource/firago/400.css";
+import "@fontsource/firago/500.css";
 import "@fontsource/firago/600.css";
 
 const GlobalStyles = createGlobalStyle`
@@ -14,13 +15,31 @@ const GlobalStyles = createGlobalStyle`
 
 :root {
   --color-white: #FFFFFF;
+  --color-gray-light: #DEE2E6;
+  --color-gray: #CED4DA;
+  --color-grayish-blue: #343A40;
   --color-text: #212529;
   --color-text-dark: #0D0F10;
+  --color-midnight-blue: rgba(2, 21, 38, 0.8);
   --color-purple: #8338EC;
   --color-soft-purple:#B588F4;
-  --color-gray: #CED4DA;
-  --color-gray-light: #DEE2E6;
-  --color-midnight-blue: #021526CC;
+  --color-yellow: #F7BC30;
+  --color-yellow-golden:#FFBE0B;
+  --color-orange: #FB5607;
+  --color-pink: #FF006E;
+  --color-pink-light: #FF66A8;
+  --color-red:#FA4D4D;
+  --color-green:#08A508;
+  --color-blue: #3A86FF;
+
+
+  --color-blue-light: #7FBFFF;  
+  --color-green-light: #7BCF96; 
+  --color-orange-light: #FF9C5F; 
+  --color-blue-dark: #1E2D47; 
+  --color-teal: #125353;  
+
+
 
 
   /* Font weights */
@@ -33,12 +52,15 @@ const GlobalStyles = createGlobalStyle`
   --font-weight-extra-bold: 800;
 
 
+  --font-size-micro: 1.2rem;
   --font-size-mini: 1.4rem;
+  --font-size-medium-small: 1.5rem;
   --font-size-tiny: 1.6rem;
   --font-size-small: 1.8rem;
   --font-size-medium: 2rem;
   --font-size-big: 2.4rem;
   --font-size-huge: 3.4rem;
+
 
 }
 

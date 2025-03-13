@@ -44,7 +44,8 @@ const Dropdown = ({ data, selectionType = "multi", paramKey, onClick, onClose })
     <StyledDropdownCheckbox onClick={onClick} paramKey={paramKey}>
       {data?.map((item) => (
         <label key={item.id}>
-          <InputCheckbox
+          <StyledInputCheckbox
+            paramKey={paramKey}
             type="checkbox"
             value={item.name}
             onChange={() => handleChange(item.name)}
@@ -99,6 +100,18 @@ const StyledDropdownCheckbox = styled(StyledDropdown)`
   & span {
     cursor: pointer;
   }
+`;
+
+const StyledInputCheckbox = styled(InputCheckbox)`
+  ${({ paramKey }) =>
+    paramKey === "department" &&
+    `
+    border: 1.5px solid var(--color-text);
+    
+    &:checked::before {
+      border-color: var(--color-text);
+    }
+  `}
 `;
 
 const StyledButton = styled(Button)`

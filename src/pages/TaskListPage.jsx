@@ -10,7 +10,7 @@ import FilteredList from "../components/FilteredList.jsx";
 const TaskListPage = () => {
   const { tasks, isLoading, error } = useTasks();
   const [taskList, setTaskList] = useState([]);
-  console.log(taskList);
+
   if (isLoading) return <Loader />;
   if (error) return <p>{error.message}</p>;
 

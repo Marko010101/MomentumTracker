@@ -1,34 +1,35 @@
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { useEffect, useMemo } from "react";
 import X from "../assets/svg/x.svg?react";
-import { useEffect } from "react";
 
 const FiltersList = ({ tasks, setTaskList }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const departmentQuery = searchParams.get("department");
-  const priorityQuery = searchParams.get("priority");
-  const employeeQuery = searchParams.get("employee");
+  // Memoize selected filters to avoid unnecessary re-renders
+  const selectedDepartments = useMemo(() => searchParams.get("department")?.split(",") || [], [searchParams]);
+  const selectedPriorities = useMemo(() => searchParams.get("priority")?.split(",") || [], [searchParams]);
+  const selectedEmployee = useMemo(
+    () => (searchParams.get("employee") ? [searchParams.get("employee")] : []),
+    [searchParams]
+  );
 
-  const selectedDepartments = departmentQuery ? departmentQuery.split(",") : [];
-  const selectedPriorities = priorityQuery ? priorityQuery.split(",") : [];
-  const selectedEmployee = employeeQuery ? [employeeQuery] : [];
   useEffect(() => {
     const filteredTasks = tasks.filter((task) => {
-      const matchesDepartment = selectedDepartments.length ? selectedDepartments.includes(task.department.name) : true;
+      const matchesDepartment = selectedDepartments.length === 0 || selectedDepartments.includes(task.department.name);
 
-      const matchesPriority = selectedPriorities.length ? selectedPriorities.includes(task.priority.name) : true;
+      const matchesPriority = selectedPriorities.length === 0 || selectedPriorities.includes(task.priority.name);
 
-      const matchesEmployee = selectedEmployee.length ? selectedEmployee.includes(task.employee.name) : true;
+      const matchesEmployee = selectedEmployee.length === 0 || selectedEmployee.includes(task.employee.name);
+
       return matchesDepartment && matchesPriority && matchesEmployee;
     });
 
     setTaskList(filteredTasks);
-  }, [selectedDepartments.length, selectedPriorities.length, selectedEmployee.length, selectedEmployee[0]]);
+  }, [selectedDepartments, selectedPriorities, selectedEmployee, tasks, setTaskList]);
 
-  const isAnyFilter =
-    Boolean(selectedDepartments.length) || Boolean(selectedPriorities.length) || Boolean(selectedEmployee.length);
+  const isAnyFilter = selectedDepartments.length > 0 || selectedPriorities.length > 0 || selectedEmployee.length > 0;
 
   const handleClearItem = (item, paramKey) => {
     const list = searchParams.get(paramKey)?.split(",") || [];
@@ -38,7 +39,7 @@ const FiltersList = ({ tasks, setTaskList }) => {
     } else {
       searchParams.delete(paramKey);
     }
-    setSearchParams(searchParams);
+    setSearchParams(new URLSearchParams(searchParams)); // Ensure new object reference
   };
 
   const handleClearFilter = () => {
@@ -88,6 +89,7 @@ const StyledFilteredQueries = styled.div`
   max-width: 100%;
   flex-wrap: wrap;
   margin-top: 2.5rem;
+  margin-bottom: 2.4rem;
   min-height: 2.9rem;
   gap: 0.8rem;
   font-size: var(--font-size-mini);
@@ -101,6 +103,7 @@ const StyledFilteredQueries = styled.div`
     border-radius: 4.3rem;
     padding: 0.6rem 1rem;
     color: var(--color-midnight-blue);
+
     & > span {
       display: flex;
       align-items: center;
@@ -120,26 +123,3 @@ const StyledFilteredQueries = styled.div`
     cursor: pointer;
   }
 `;
-
-/* const StyledList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  padding: 3.2rem 0rem 15rem 0rem;
-
-  & > h3 {
-    width: max-content;
-    font-size: var(--font-size-big);
-    font-weight: var(--font-weight-regular);
-    margin-top: 3.3rem;
-    text-align: center;
-  }
-
-  @media screen and (max-width: 1600px) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    row-gap: 2rem;
-  }
-`;
- */
