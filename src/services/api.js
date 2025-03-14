@@ -1,85 +1,98 @@
 import { API_URL } from "../constants/API_URL.js";
 
 export async function getStatuses() {
-  try {
-    const response = await fetch(`${API_URL}/statuses`);
+  const response = await fetch(`${API_URL}/statuses`);
 
-    if (!response.ok) {
-      throw new Error(`Could not load Statuses, status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching departments:", error);
+  if (!response.ok) {
+    throw new Error(`Could not load Statuses, status: ${response.status}`);
   }
+
+  const data = await response.json();
+
+  return data;
+}
+
+export async function updateStatus(id, body) {
+  const response = await fetch(`${API_URL}/tasks/${id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Could not update status, status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data;
 }
 
 export async function getPriorities() {
   // await new Promise((resolve) => setTimeout(resolve, 2000));
-  try {
-    const response = await fetch(`${API_URL}/priorities`);
+  const response = await fetch(`${API_URL}/priorities`);
 
-    if (!response.ok) {
-      throw new Error(`Could not load Priorities, status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching departments:", error);
+  if (!response.ok) {
+    throw new Error(`Could not load Priorities, status: ${response.status}`);
   }
+
+  const data = await response.json();
+
+  return data;
 }
 
 export async function getDepartments() {
-  try {
-    const response = await fetch(`${API_URL}/departments`);
+  const response = await fetch(`${API_URL}/departments`);
 
-    if (!response.ok) {
-      throw new Error(`Could not load departments, status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching departments:", error);
+  if (!response.ok) {
+    throw new Error(`Could not load departments, status: ${response.status}`);
   }
+
+  const data = await response.json();
+
+  return data;
 }
 
 export async function getEmployees() {
-  try {
-    const response = await fetch(`${API_URL}/employees`, {
-      headers: { accept: "application/json", Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` },
-    });
+  const response = await fetch(`${API_URL}/employees`, {
+    headers: { accept: "application/json", Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` },
+  });
 
-    if (!response.ok) {
-      throw new Error(`Could not load departments, status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching departments:", error);
+  if (!response.ok) {
+    throw new Error(`Could not load departments, status: ${response.status}`);
   }
+
+  const data = await response.json();
+
+  return data;
 }
 export async function getTasks() {
-  try {
-    const response = await fetch(`${API_URL}/tasks`, {
-      headers: { accept: "application/json", Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` },
-    });
+  const response = await fetch(`${API_URL}/tasks`, {
+    headers: { accept: "application/json", Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` },
+  });
 
-    if (!response.ok) {
-      throw new Error(`Could not load tasks, status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching departments:", error);
+  if (!response.ok) {
+    throw new Error(`Could not load tasks, status: ${response.status}`);
   }
+
+  const data = await response.json();
+
+  return data;
+}
+
+export async function getTask(id) {
+  const response = await fetch(`${API_URL}/tasks/${id}`, {
+    headers: { accept: "application/json", Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Could not load task, status: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  return data;
 }

@@ -35,7 +35,6 @@ const StyledList = styled.div`
 const TaskColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 `;
 
 const StyledH3 = styled.h3`

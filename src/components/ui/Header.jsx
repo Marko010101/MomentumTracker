@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import hourglassImage from "../../assets/img/Hourglass.png";
 import Button from "./Button.jsx";
 import AddSvg from "../../assets/svg/add.svg?react";
 
@@ -9,7 +10,7 @@ const Header = () => {
     <StyledHeader>
       <Link to="/">
         <span>Momentum</span>
-        <img src="/src/assets/Hourglass.png" alt="Hourglass Image" />
+        <img src={hourglassImage} alt="Hourglass Image" />
       </Link>
       <div>
         <Button variant="secondary">თანამშრომლის შექმნა</Button>

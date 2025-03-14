@@ -15,7 +15,7 @@ export const fixedDepartmentName = (departmentName) => {
   return corrections[fixedName] || fixedName;
 };
 
-export const formatDate = (timestamp) => {
+export const formatDateToMonth = (timestamp) => {
   const months = ["იანვ", "თებ", "მარ", "აპრ", "მაი", "ივნ", "ივლ", "აგვ", "სექ", "ოქტ", "ნოე", "დეკ"];
 
   // Ensure timestamp is in a valid format
@@ -28,6 +28,18 @@ export const formatDate = (timestamp) => {
 
   return `${day} ${month}, ${year}`;
 };
+
+export function formatDateToWeekday(timestamp) {
+  const days = ["კვი", "ორშ", "სამ", "ოთხ", "ხუთ", "პარ", "შაბ"];
+
+  const date = new Date(timestamp);
+  const dayOfWeek = days[date.getDay()];
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Months are zero-based
+  const year = date.getFullYear();
+
+  return `${dayOfWeek} - ${day}/${month}/${year}`;
+}
 
 export const getPriorityColor = (priorityName) => {
   switch (priorityName) {

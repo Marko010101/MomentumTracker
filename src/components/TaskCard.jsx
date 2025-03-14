@@ -1,18 +1,16 @@
+import { Link } from "react-router";
 import styled from "styled-components";
 
+import defaultImage from "../assets/img/defaultAvatar.jpg";
 import CommentsIcon from "../assets/svg/Comments.svg?react";
-import defaultImage from "../assets/svg/defaultAvatar.jpg";
 
-import {
-  fixedDepartmentName,
-  formatDate,
-  getDepartmentColor,
-  getPriorityColor,
-  truncateString,
-} from "../utils/helper.js";
+import { formatDateToMonth, getDepartmentColor, getPriorityColor, truncateString } from "../utils/helper.js";
+import PriorityDepartmentBadge from "./ui/PriorityDepartmentBadge.jsx";
+import { StyledBadge } from "./ui/StyledBadge.jsx";
 
 const TaskCard = ({ task, color }) => {
   const {
+    id,
     name,
     description,
     due_date,
@@ -27,16 +25,17 @@ const TaskCard = ({ task, color }) => {
   const avatar = employeeAvatar || defaultImage;
 
   return (
-    <StyledCard color={color}>
+    <StyledCardLink to={`/${id}`} color={color}>
       <CardHeader priorityColor={priorityColor} departmentColor={departmentColor}>
-        <div>
-          <div>
-            <img src={priorityIcon} alt="Priority icon" />
-            <h4>{priorityName}</h4>
-          </div>
-          <span>{fixedDepartmentName(departmentName)}</span>
-        </div>
-        <p>{formatDate(due_date)}</p>
+        <CustomStyledBadge departmentColor={departmentColor} priorityColor={priorityColor}>
+          <PriorityDepartmentBadge
+            priorityIcon={priorityIcon}
+            priorityName={priorityName}
+            departmentName={departmentName}
+            isDepartmentNameFixed={true}
+          />
+        </CustomStyledBadge>
+        <p>{formatDateToMonth(due_date)}</p>
       </CardHeader>
       <div>
         <StyledText>
@@ -52,13 +51,13 @@ const TaskCard = ({ task, color }) => {
           </p>
         </CardFooter>
       </div>
-    </StyledCard>
+    </StyledCardLink>
   );
 };
 
 export default TaskCard;
 
-const StyledCard = styled.div`
+const StyledCardLink = styled(Link)`
   display: flex;
   flex-direction: column;
   margin-top: 3rem;
@@ -106,34 +105,12 @@ const CardHeader = styled.div`
   align-items: center;
   font-size: var(--font-size-micro);
 
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    & > span {
+  /* &:first-child div > div {
+    padding: 0.4rem;
+    }
+    &:first-child div > span {
       padding: 0.5rem 0.9rem;
-      border-radius: 1.5rem;
-      background-color: ${({ departmentColor }) => departmentColor};
-      color: var(--color-white);
-    }
-
-    & > div {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.4rem;
-      border-radius: 0.4rem;
-      color: ${({ priorityColor }) => priorityColor};
-      border: 0.5px solid ${({ priorityColor }) => priorityColor};
-
-      & h4 {
-        font-size: inherit;
-        font-weight: var(--font-weight-medium);
-        line-height: 150%;
-      }
-    }
-  }
+      } */
 
   & > p {
   }
@@ -171,5 +148,14 @@ const CardFooter = styled.div`
     justify-content: center;
     gap: 0.4rem;
     font-size: var(--font-size-mini);
+  }
+`;
+
+const CustomStyledBadge = styled(StyledBadge)`
+  & > div {
+    padding: 0.4rem;
+  }
+  & > span {
+    padding: 0.5rem 0.9rem;
   }
 `;

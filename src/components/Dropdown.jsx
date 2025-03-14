@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { InputCheckbox } from "./ui/InputCheckbox.jsx";
 import { StyledDropdown } from "./ui/StyledDropdown.jsx";
 import Button from "./ui/Button.jsx";
+import { getDepartmentColor } from "../utils/helper.js";
 
 const Dropdown = ({ data, selectionType = "multi", paramKey, onClick, onClose }) => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -45,14 +46,16 @@ const Dropdown = ({ data, selectionType = "multi", paramKey, onClick, onClose })
       {data?.map((item) => (
         <label key={item.id}>
           <StyledInputCheckbox
-            paramKey={paramKey}
+            departmentName={paramKey === "department" ? item.name : null}
             type="checkbox"
             value={item.name}
             onChange={() => handleChange(item.name)}
             checked={selectedItems.includes(item.name)}
           />
           {paramKey === "employee" ? <img src={item.avatar} alt={item.name} /> : null}
-          <span>{item.name}</span>
+          <span>
+            {item.name} {item.surname}
+          </span>
         </label>
       ))}
       <StyledButton variant="primary" p="0.8rem 1.4rem" onClick={saveSelection}>
@@ -103,15 +106,16 @@ const StyledDropdownCheckbox = styled(StyledDropdown)`
 `;
 
 const StyledInputCheckbox = styled(InputCheckbox)`
-  ${({ paramKey }) =>
-    paramKey === "department" &&
-    `
-    border: 1.5px solid var(--color-text);
-    
-    &:checked::before {
-      border-color: var(--color-text);
-    }
-  `}
+  ${({ departmentName }) => {
+    const color = getDepartmentColor(departmentName);
+    return css`
+      border: 1.5px solid ${color};
+
+      &:checked::before {
+        border-color: ${color};
+      }
+    `;
+  }}
 `;
 
 const StyledButton = styled(Button)`

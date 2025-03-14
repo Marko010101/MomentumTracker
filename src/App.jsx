@@ -6,9 +6,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./styles/globalStyles.js";
 import Loader from "./components/ui/Loader.jsx";
 
-const TaskListPage = lazy(() => import("./pages/TaskListPage.jsx"));
-const PageNotFound = lazy(() => import("./pages/PageNotFound.jsx"));
 const AppLayout = lazy(() => import("./components/AppLayout.jsx"));
+const TaskListPage = lazy(() => import("./pages/TaskListPage.jsx"));
+const TaskPage = lazy(() => import("./pages/TaskPage.jsx"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound.jsx"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route element={<AppLayout />}>
               <Route path="/" index element={<TaskListPage />} />
+              <Route path="/:taskId" index element={<TaskPage />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>

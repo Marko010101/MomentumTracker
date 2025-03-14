@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import "@fontsource/firago";
+import "@fontsource/firago/300.css";
 import "@fontsource/firago/400.css";
 import "@fontsource/firago/500.css";
 import "@fontsource/firago/600.css";
@@ -16,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
 :root {
   --color-white: #FFFFFF;
   --color-gray-light: #DEE2E6;
+  --color-gray-dark:#474747;;
   --color-gray: #CED4DA;
   --color-grayish-blue: #343A40;
   --color-text: #212529;
@@ -36,7 +38,7 @@ const GlobalStyles = createGlobalStyle`
   --color-blue-light: #7FBFFF;  
   --color-green-light: #7BCF96; 
   --color-orange-light: #FF9C5F; 
-  --color-blue-dark: #1E2D47; 
+  --color-blue-dark:rgb(25, 59, 116); 
   --color-teal: #125353;  
 
 
@@ -72,7 +74,7 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 
   /* Creating animations for dark mode */
-  /* transition: color 0.2s , background-color 0.2s, border-width 0.2s, padding 0.2s; */
+  transition: color 0.2s , background-color 0.2s, border-width 0.2s;
 }
 
 html {
@@ -142,6 +144,7 @@ h5,
 h6 {
   overflow-wrap: break-word;
   hyphens: auto;
+    line-height: normal;
 }
 
 img {

@@ -33,6 +33,7 @@ const StyledLi = styled.li`
   width: 19.9rem;
   padding: 1rem 1.8rem;
   border-radius: 1rem;
+  cursor: pointer;
 `;
 
 const ToggleText = styled.p`
@@ -40,7 +41,6 @@ const ToggleText = styled.p`
   align-items: center;
   gap: 0.8rem;
   color: ${(props) => (props.isOpen ? "var(--color-purple)" : "var(--color-text-dark)")};
-  cursor: pointer;
 
   &:hover {
     color: var(--color-purple);
