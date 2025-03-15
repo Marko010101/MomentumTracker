@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 
-const Buttons = styled.button`
+const Button = styled.button`
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   gap: 0.4rem;
-  align-items: center;
-  justify-content: center;
   font-weight: var(--font-weight-regular);
 
   ${(props) =>
@@ -18,7 +18,7 @@ const Buttons = styled.button`
       border: none;
 
       &:hover {
-        background-color: var(--color-soft-purple);
+        background-color: var(--color-purple-soft);
       }
     `}
 
@@ -31,9 +31,9 @@ const Buttons = styled.button`
       border: 1px solid var(--color-purple);
 
       &:hover {
-        border: 1px solid var(--color-soft-purple);
+        border: 1px solid var(--color-purple-soft);
       }
     `}
 `;
 
-export default Buttons;
+export default Button;

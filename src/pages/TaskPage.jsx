@@ -8,6 +8,7 @@ import PriorityDepartmentBadge from "../components/ui/PriorityDepartmentBadge.js
 import { formatDateToWeekday, getDepartmentColor, getPriorityColor } from "../utils/helper.js";
 import { StyledBadge } from "../components/ui/StyledBadge.jsx";
 import TaskDetails from "../components/TaskDetails.jsx";
+import CommentsSection from "../components/CommentsSection.jsx";
 
 const TaskPage = () => {
   const { taskId } = useParams();
@@ -59,7 +60,7 @@ const TaskPage = () => {
           taskId={taskId}
         />
       </TaskDetailsBox>
-      <div>comments</div>
+      <CommentsSection taskId={taskId} />
     </StyledTaskPage>
   );
 };
@@ -70,8 +71,8 @@ const StyledTaskPage = styled.section`
   margin: 4rem 12rem 15rem;
   display: grid;
   grid-template-columns: 71.5rem 74.1rem;
-  justify-items: space-between;
-  gap: 22.3rem;
+  justify-content: space-between;
+  /* gap: 22.3rem; */
 `;
 
 const TaskDetailsBox = styled.div`

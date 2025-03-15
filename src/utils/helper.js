@@ -71,7 +71,7 @@ export const getDepartmentColor = (department) => {
     case "მედიის დეპარტამენტი":
       return "var(--color-yellow)";
     default:
-      return "var(--color-text)";
+      return "var(--color-purple)";
   }
 };
 

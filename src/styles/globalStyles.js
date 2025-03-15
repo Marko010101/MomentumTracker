@@ -20,11 +20,14 @@ const GlobalStyles = createGlobalStyle`
   --color-gray-dark:#474747;;
   --color-gray: #CED4DA;
   --color-grayish-blue: #343A40;
+  --color-gray-muted: #ADB5BD;
   --color-text: #212529;
   --color-text-dark: #0D0F10;
   --color-midnight-blue: rgba(2, 21, 38, 0.8);
+  --color-black: #000000;
   --color-purple: #8338EC;
-  --color-soft-purple:#B588F4;
+  --color-purple-soft:#B588F4;
+  --color-purple-light:#F8F3FEA6;
   --color-yellow: #F7BC30;
   --color-yellow-golden:#FFBE0B;
   --color-orange: #FB5607;
@@ -74,7 +77,7 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 
   /* Creating animations for dark mode */
-  transition: color 0.2s , background-color 0.2s, border-width 0.2s;
+  transition: color 0.2s , background-color 0.2s, border-width 0.2s , opacity 0.2s;
 }
 
 html {

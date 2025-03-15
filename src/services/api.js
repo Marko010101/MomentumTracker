@@ -96,3 +96,38 @@ export async function getTask(id) {
 
   return data;
 }
+
+export async function getComments(id) {
+  const response = await fetch(`${API_URL}/tasks/${id}/comments`, {
+    headers: { accept: "application/json", Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Could not load comments, status: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  return data;
+}
+
+export async function createComment(id, text, parent_id = null) {
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  const response = await fetch(`${API_URL}/tasks/${id}/comments`, {
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+    },
+    method: "POST",
+    body: JSON.stringify({ text, parent_id }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Could not create comment, status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
