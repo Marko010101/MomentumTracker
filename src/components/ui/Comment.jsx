@@ -3,17 +3,17 @@ import styled from "styled-components";
 
 import ArrowLeft from "../../assets/svg/arrow-left.svg?react";
 import Button from "./Button.jsx";
-import TextArea from "./TextArea.jsx";
+import CommentTextarea from "./CommentTextarea.jsx";
 import { useCreateComment } from "../../hooks/useCreateComment.js";
 
-const Comment = ({ comment, subComment, taskId }) => {
-  const [isTextareaOpen, setIsTextareaOpen] = useState(false);
+const Comment = ({ comment, subComment, taskId, openCommentId, setOpenCommentId }) => {
   const [replyText, setReplyText] = useState("");
   const { mutate: createComment, isPending } = useCreateComment();
 
   const { author_avatar, author_nickname, id, text } = comment;
   const hasSubComment = Boolean(subComment?.length);
   const isSubComment = comment?.parent_id;
+  const isTextareaOpen = openCommentId === id;
 
   const handleSubmitReply = (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ const Comment = ({ comment, subComment, taskId }) => {
       {
         onSuccess: () => {
           setReplyText("");
-          setIsTextareaOpen(false);
+          setOpenCommentId(null); // Close text area after submitting
         },
       }
     );
@@ -41,7 +41,7 @@ const Comment = ({ comment, subComment, taskId }) => {
             <StyledButton
               onClick={(e) => {
                 e.preventDefault();
-                setIsTextareaOpen((isOpen) => !isOpen);
+                setOpenCommentId(isTextareaOpen ? null : id);
               }}
             >
               <span>
@@ -59,17 +59,21 @@ const Comment = ({ comment, subComment, taskId }) => {
             comment={subComment[0]}
             subComment={subComment[0].sub_comments}
             taskId={taskId}
+            openCommentId={openCommentId}
+            setOpenCommentId={setOpenCommentId}
           />
         </StyledSubComment>
       )}
       {isTextareaOpen && (
-        <TextArea
-          onSubmit={handleSubmitReply}
-          value={replyText}
-          onChange={(e) => setReplyText(e.target.value)}
-          isPending={isPending}
-          placeholder="დაწერე პასუხი"
-        />
+        <TextAreaWrapper>
+          <CommentTextarea
+            onSubmit={handleSubmitReply}
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+            isPending={isPending}
+            placeholder="დაწერე პასუხი"
+          />
+        </TextAreaWrapper>
       )}
     </>
   );
@@ -135,4 +139,8 @@ const StyledButton = styled(Button)`
   &:hover svg {
     opacity: 0.6;
   }
+`;
+
+const TextAreaWrapper = styled.div`
+  margin-left: 5.3rem;
 `;

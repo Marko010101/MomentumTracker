@@ -7,7 +7,7 @@ import { LuLoaderCircle } from "react-icons/lu";
 
 import { useOutsideClick } from "../hooks/useOutsideClick.js";
 
-const DropdownSelect = ({ handleAction, data, defaultText, isPending }) => {
+const DropdownSelect = ({ handleAction, data, defaultText, isPending = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const dropdownRef = useOutsideClick(() => setIsOpen(false));
@@ -18,7 +18,6 @@ const DropdownSelect = ({ handleAction, data, defaultText, isPending }) => {
 
   const handleSelect = (id, itemName) => {
     setSelectedItem(itemName);
-
     handleAction(id);
     setIsOpen(false);
   };

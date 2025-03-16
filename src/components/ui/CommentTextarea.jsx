@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import Button from "./Button.jsx";
 
-const TextArea = ({ onSubmit, value, onChange, isPending, placeholder }) => {
+const CommentTextarea = ({ onSubmit, value, onChange, isPending, placeholder }) => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -27,7 +27,7 @@ const TextArea = ({ onSubmit, value, onChange, isPending, placeholder }) => {
   );
 };
 
-export default TextArea;
+export default CommentTextarea;
 
 const WrapperForm = styled.form`
   position: relative;

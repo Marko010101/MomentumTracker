@@ -5,12 +5,14 @@ import { useComments } from "../hooks/useComments.js";
 import { useCreateComment } from "../hooks/useCreateComment.js";
 import Comment from "./ui/Comment.jsx";
 import Loader from "./ui/Loader.jsx";
-import TextArea from "./ui/TextArea.jsx";
+import CommentTextarea from "./ui/CommentTextarea.jsx";
 
 const CommentsSection = ({ taskId }) => {
   const { comments, isLoading, error } = useComments(taskId);
   const [commentText, setCommentText] = useState("");
   const { mutate: createComment, isPending } = useCreateComment();
+
+  const [openCommentId, setOpenCommentId] = useState(null);
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -31,10 +33,11 @@ const CommentsSection = ({ taskId }) => {
 
   const sortedComments = [...comments].sort((a, b) => b.id - a.id);
   const topLevelComments = sortedComments.filter((comment) => comment.parent_id === null);
+  const commentsLength = comments.length + comments.filter((comment) => comment.sub_comments.length > 0).length;
 
   return (
     <StyledComments>
-      <TextArea
+      <CommentTextarea
         onSubmit={handleSubmitComment}
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
@@ -43,11 +46,18 @@ const CommentsSection = ({ taskId }) => {
       />
       <CommentsHeader>
         <h5>კომენტარები</h5>
-        <span>{comments.length}</span>
+        <span>{commentsLength}</span>
       </CommentsHeader>
       <CommentsBox>
         {topLevelComments.map((comment) => (
-          <Comment key={comment.id} comment={comment} subComment={comment.sub_comments} taskId={taskId} />
+          <Comment
+            key={comment.id}
+            comment={comment}
+            subComment={comment.sub_comments}
+            taskId={taskId}
+            openCommentId={openCommentId}
+            setOpenCommentId={setOpenCommentId}
+          />
         ))}
       </CommentsBox>
     </StyledComments>

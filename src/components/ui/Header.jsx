@@ -4,24 +4,35 @@ import styled from "styled-components";
 import hourglassImage from "../../assets/img/Hourglass.png";
 import Button from "./Button.jsx";
 import AddSvg from "../../assets/svg/add.svg?react";
+import { useState } from "react";
+import ModalAddEmployee from "../ModalAddEmployee.jsx";
 
 const Header = () => {
+  const [isCreateEmployeeOpen, setIsCreateEmployeeOpen] = useState(false);
+
+  const handleToggleEmployeeModal = () => setIsCreateEmployeeOpen((isOpen) => !isOpen);
+
   return (
-    <StyledHeader>
-      <Link to="/">
-        <span>Momentum</span>
-        <img src={hourglassImage} alt="Hourglass Image" />
-      </Link>
-      <div>
-        <Button variant="secondary">თანამშრომლის შექმნა</Button>
-        <Button variant="primary">
-          <span>
-            <AddSvg />
-          </span>
-          შექმენი ახალი დავალება
-        </Button>
-      </div>
-    </StyledHeader>
+    <>
+      <StyledHeader>
+        <Link to="/">
+          <span>Momentum</span>
+          <img src={hourglassImage} alt="Hourglass Image" />
+        </Link>
+        <div>
+          <Button onClick={handleToggleEmployeeModal} variant="secondary">
+            თანამშრომლის შექმნა
+          </Button>
+          <Button variant="primary">
+            <span>
+              <AddSvg />
+            </span>
+            შექმენი ახალი დავალება
+          </Button>
+        </div>
+      </StyledHeader>
+      {isCreateEmployeeOpen ? <ModalAddEmployee handleToggleEmployeeModal={handleToggleEmployeeModal} /> : null}
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ import { StyledDropdown } from "./ui/StyledDropdown.jsx";
 import Button from "./ui/Button.jsx";
 import { getDepartmentColor } from "../utils/helper.js";
 
-const Dropdown = ({ data, selectionType = "multi", paramKey, onClick, onClose }) => {
+const FilterModal = ({ data, selectionType = "multi", paramKey, onClick, onClose }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -65,7 +65,7 @@ const Dropdown = ({ data, selectionType = "multi", paramKey, onClick, onClose })
   );
 };
 
-export default Dropdown;
+export default FilterModal;
 
 const StyledDropdownCheckbox = styled(StyledDropdown)`
   display: grid;

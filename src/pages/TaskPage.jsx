@@ -15,7 +15,6 @@ const TaskPage = () => {
   const { task, isLoading, error } = useTask(taskId);
   if (isLoading) return <Loader />;
   if (error) return <p>{error.message}</p>;
-  console.log(task);
   const {
     description,
     due_date,

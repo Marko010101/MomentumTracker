@@ -4,7 +4,7 @@ import ArrowDown from "../assets/svg/arrowDown.svg?react";
 import ArrowUp from "../assets/svg/arrowUp.svg?react";
 
 import { useOutsideClick } from "../hooks/useOutsideClick.js";
-import Dropdown from "./Dropdown.jsx";
+import FilterModal from "./FilterModal.jsx";
 
 function FilterListItem({ children, isOpen, onToggle, onClose, data, selectionType = "multi", paramKey }) {
   const ref = useOutsideClick(onClose);
@@ -14,7 +14,7 @@ function FilterListItem({ children, isOpen, onToggle, onClose, data, selectionTy
         {children} <span>{isOpen ? <ArrowUp /> : <ArrowDown />}</span>
       </ToggleText>
       {isOpen && (
-        <Dropdown
+        <FilterModal
           data={data}
           selectionType={selectionType}
           paramKey={paramKey}

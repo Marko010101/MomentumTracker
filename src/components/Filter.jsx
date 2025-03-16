@@ -12,7 +12,6 @@ const Filter = () => {
   const { departments, isLoading: isLoadingDep, error: errorDep } = useDepartments();
   const { priorities, isLoading: isLoadingPriorities, error: errorPriorities } = usePriorities();
   const { employees, isLoading: isLoadingEmp, error: errorEmp } = useEmployees();
-  console.log(employees);
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };

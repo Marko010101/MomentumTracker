@@ -62,13 +62,34 @@ export async function getEmployees() {
   });
 
   if (!response.ok) {
-    throw new Error(`Could not load departments, status: ${response.status}`);
+    throw new Error(`Could not load employee, status: ${response.status}`);
   }
 
   const data = await response.json();
 
   return data;
 }
+
+export async function createEmployee(formData) {
+  const response = await fetch(`${API_URL}/employees`, {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Could not create employee: ${errorData.message || response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+
 export async function getTasks() {
   const response = await fetch(`${API_URL}/tasks`, {
     headers: { accept: "application/json", Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` },

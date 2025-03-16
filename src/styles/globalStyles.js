@@ -56,7 +56,7 @@ const GlobalStyles = createGlobalStyle`
   --font-weight-bold: 700;
   --font-weight-extra-bold: 800;
 
-
+  --font-size-nano: 1rem;
   --font-size-micro: 1.2rem;
   --font-size-mini: 1.4rem;
   --font-size-medium-small: 1.5rem;
@@ -64,6 +64,7 @@ const GlobalStyles = createGlobalStyle`
   --font-size-small: 1.8rem;
   --font-size-medium: 2rem;
   --font-size-big: 2.4rem;
+  --font-size-large: 3.2rem;
   --font-size-huge: 3.4rem;
 
 
