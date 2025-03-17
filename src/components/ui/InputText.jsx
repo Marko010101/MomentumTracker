@@ -11,9 +11,10 @@ export const InputText = styled.input`
   height: 4.2rem;
   border-radius: 0.6rem;
 
-  border: 0.1rem solid var(--color-gray);
   padding: 1rem;
   font-size: var(--font-size-mini);
   font-weight: var(--font-weight-regular);
   outline: none;
+
+  border: 0.1rem solid ${({ isError }) => (isError ? "var(--color-red)" : "var(--color-gray)")};
 `;

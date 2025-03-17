@@ -18,6 +18,12 @@ const TaskDetails = ({ avatar, departmentName, employeeFullName, due_date, statu
   if (error || changeStatusError) return <p>{error.message || changeStatusError.message}</p>;
 
   const handleStatusChange = (newStatusId) => {
+    const currentStatus = statuses.find((status) => status.name === statusName);
+
+    if (currentStatus && currentStatus.id === newStatusId) {
+      return;
+    }
+
     changeStatus({
       id: taskId,
       body: { status_id: newStatusId },
@@ -53,7 +59,7 @@ const TaskDetails = ({ avatar, departmentName, employeeFullName, due_date, statu
           </div>
         </li>
         <StyledEmployeeLi>
-          <img src={avatar} alt="" />
+          <img src={avatar} alt="Employee image" />
           <div>
             <span>{departmentName}</span>
             <p>{employeeFullName}</p>

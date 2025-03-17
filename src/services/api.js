@@ -76,9 +76,8 @@ export async function createEmployee(formData) {
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-      "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: formData,
   });
 
   if (!response.ok) {

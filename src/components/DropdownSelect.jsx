@@ -6,8 +6,9 @@ import ArrowUp from "../assets/svg/arrow-up.svg?react";
 import { LuLoaderCircle } from "react-icons/lu";
 
 import { useOutsideClick } from "../hooks/useOutsideClick.js";
+import SpinnerSmall from "./ui/SpinnerSmall.jsx";
 
-const DropdownSelect = ({ handleAction, data, defaultText, isPending = false }) => {
+const DropdownSelect = ({ handleAction, data, defaultText, isPending = false, isError = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const dropdownRef = useOutsideClick(() => setIsOpen(false));
@@ -23,11 +24,11 @@ const DropdownSelect = ({ handleAction, data, defaultText, isPending = false }) 
   };
 
   return (
-    <StyledDropdown ref={dropdownRef} isOpen={isOpen} isPending={isPending}>
+    <StyledDropdown ref={dropdownRef} isOpen={isOpen} isPending={isPending} isError={isError}>
       <ul>
         <p onClick={handleToggle}>
           {selectedItem || defaultText}
-          <span>{isPending ? <LuLoaderCircle /> : isOpen ? <ArrowUp /> : <ArrowDown />}</span>
+          <span>{isPending ? <SpinnerSmall color="var(--color-purple)" /> : isOpen ? <ArrowUp /> : <ArrowDown />}</span>
         </p>
 
         {isOpen &&
@@ -55,7 +56,7 @@ const StyledDropdown = styled.div`
   user-select: none;
 
   background-color: var(--color-white);
-  border: 0.1rem solid var(--color-gray);
+  border: 0.1rem solid ${({ isError }) => (isError ? "var(--color-red)" : "var(--color-gray)")};
   font-size: var(--font-size-mini);
   color: var(--color-text-dark);
   font-weight: var(--font-weight-light);
@@ -74,20 +75,6 @@ const StyledDropdown = styled.div`
         right: 1.4rem;
         top: 50%;
         transform: translateY(-50%);
-
-        & > svg {
-          width: 1.4rem;
-          height: 1.4rem;
-          ${({ isPending }) =>
-            isPending
-              ? css`
-                  stroke: var(--color-purple);
-                  animation: spin 1s linear infinite;
-                `
-              : css`
-                  stroke: var(--color-grayish-blue);
-                `}
-        }
       }
 
       &:hover {
@@ -97,7 +84,6 @@ const StyledDropdown = styled.div`
 
     & li {
       cursor: pointer;
-      border-bottom: 0.1rem solid var(--color-cloudy-gray);
       padding: 1.2rem 1.4rem;
       &:hover {
         background-color: var(--color-gray-light);
@@ -107,14 +93,6 @@ const StyledDropdown = styled.div`
       display: flex;
       align-items: center;
       gap: 0.8rem;
-    }
-  }
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
     }
   }
 `;

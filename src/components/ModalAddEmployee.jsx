@@ -1,24 +1,23 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import { useOutsideClick } from "../hooks/useOutsideClick.js";
 import CloseX from "../assets/svg/closeX.svg?react";
-import { errorText } from "../constants/errorText.js";
 import { validationTextEmployee } from "../constants/validationTextEmployee.js";
+import { useCreateEmployee } from "../hooks/useCreateEmployee.js";
+import { useDepartments } from "../hooks/useDepartments.js";
+import { useOutsideClick } from "../hooks/useOutsideClick.js";
 import { validateInputEmployee } from "../utils/validationEmployee.js";
+import DropdownSelect from "./DropdownSelect.jsx";
 import Button from "./ui/Button.jsx";
 import { ModalOverlay } from "./ui/ModalOverlay.jsx";
 import { StyledText } from "./ui/StyledText.jsx";
-import Loader from "./ui/Loader.jsx";
 import Upload from "./ui/Upload.jsx";
 import ValidationInput from "./ui/ValidationInput.jsx";
-import { useCreateEmployee } from "../hooks/useCreateEmployee.js";
-import DropdownSelect from "./DropdownSelect.jsx";
-import { useDepartments } from "../hooks/useDepartments.js";
+import SpinnerSmall from "./ui/SpinnerSmall.jsx";
 
 const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
   const { mutate: createEmployee, isPending } = useCreateEmployee();
-  const { departments, isLoading, error: departmentError } = useDepartments();
+  const { departments } = useDepartments();
 
   const [file, setFile] = useState(null);
   const ref = useOutsideClick(handleToggleEmployeeModal);
@@ -43,11 +42,9 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
     }));
     setErrors((prevErrors) => ({
       ...prevErrors,
-      department: "",
+      department: validateInputEmployee("department", departmentId),
     }));
   };
-
-  if (isPending) return <Loader />;
 
   const handleFileChange = (uploadedFile) => {
     if (uploadedFile) {
@@ -80,6 +77,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate form fields
     const newErrors = Object.keys(formValues).reduce((acc, key) => {
       acc[key] = validateInputEmployee(key, formValues[key]);
       return acc;
@@ -87,11 +85,26 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
 
     setErrors(newErrors);
 
+    // Check if there are any validation errors
     const hasErrors = Object.values(newErrors).some((error) => error && error.length > 0);
     if (!hasErrors) {
-      const employeeData = { ...formValues };
-      await createEmployee(employeeData);
-      handleToggleEmployeeModal();
+      const formData = new FormData();
+      formData.append("name", formValues.name);
+      formData.append("surname", formValues.surname);
+      formData.append("department_id", formValues.department);
+      if (formValues.avatar) {
+        formData.append("avatar", formValues.avatar);
+      }
+
+      // Trigger the mutation with onSuccess callback
+      createEmployee(formData, {
+        onSuccess: () => {
+          handleToggleEmployeeModal(); // Close the modal on success
+        },
+        onError: (error) => {
+          console.error("Error creating employee:", error);
+        },
+      });
     }
   };
 
@@ -112,7 +125,6 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
               handleInputChange={handleInputChange}
               errors={errors}
               validationText={validationTextEmployee}
-              errorText={errorText}
             />
             <ValidationInput
               fieldName="გვარი"
@@ -122,7 +134,6 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
               handleInputChange={handleInputChange}
               errors={errors}
               validationText={validationTextEmployee}
-              errorText={errorText}
             />
           </div>
           <div className="grid-col">
@@ -145,13 +156,13 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
             {errors.avatar && <StyledText isError={true}>{errors.avatar}</StyledText>}
           </div>
           <div>
-            <DropwdownWrapper>
+            <DropwdownWrapper isError={errors.department}>
               <StyledLabel htmlFor="department">დეპარტამენტი *</StyledLabel>
               <DropdownSelect
                 data={departments}
-                isPending={isLoading}
                 defaultText="აირჩიეთ დეპარტამენტი"
                 handleAction={handleDepartmentSelect}
+                isError={errors.department}
               />
               {errors.department && <StyledText isError={true}>{errors.department}</StyledText>}
             </DropwdownWrapper>
@@ -160,8 +171,8 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
             <Button variant="secondary" type="button" onClick={handleToggleEmployeeModal}>
               გაუქმება
             </Button>
-            <Button variant="primary" type="submit">
-              თანამშრომლის დამატება
+            <Button variant="primary" type="submit" disabled={isPending}>
+              {isPending ? <SpinnerSmall /> : "თანამშრომლის დამატება"}
             </Button>
           </div>
         </form>
@@ -169,14 +180,13 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
     </ModalOverlay>
   );
 };
-
 export default ModalAddEmployee;
 
 const ModalContent = styled.div`
   position: relative;
   margin-top: 11.8rem;
   width: 91.3rem;
-  height: 76.6rem;
+  height: max-content;
   padding: 11.7rem 5rem 6rem 5rem;
   border-radius: 1rem;
   background-color: var(--color-white);
@@ -197,7 +207,7 @@ const ModalContent = styled.div`
     & > div:last-child {
       display: flex;
       justify-content: end;
-      margin-top: -2.5rem;
+      margin-top: -1.8rem;
     }
 
     & > div {
@@ -235,6 +245,9 @@ const DropwdownWrapper = styled.div`
     left: 0;
     width: 38.4rem;
     max-height: 22rem;
+  }
+  & > p {
+    margin-top: 3.9rem;
   }
 `;
 

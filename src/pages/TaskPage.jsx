@@ -2,13 +2,13 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { useTask } from "../hooks/useTask.js";
+import CommentsSection from "../components/CommentsSection.jsx";
+import TaskDetails from "../components/TaskDetails.jsx";
 import Loader from "../components/ui/Loader.jsx";
 import PriorityDepartmentBadge from "../components/ui/PriorityDepartmentBadge.jsx";
-import { formatDateToWeekday, getDepartmentColor, getPriorityColor } from "../utils/helper.js";
 import { StyledBadge } from "../components/ui/StyledBadge.jsx";
-import TaskDetails from "../components/TaskDetails.jsx";
-import CommentsSection from "../components/CommentsSection.jsx";
+import { useTask } from "../hooks/useTask.js";
+import { getDepartmentColor, getPriorityColor } from "../utils/helper.js";
 
 const TaskPage = () => {
   const { taskId } = useParams();
