@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
@@ -25,16 +25,20 @@ const CreateTask = () => {
   const [isCreateEmployeeOpen, setIsCreateEmployeeOpen] = useState(false);
   const { mutate: createTask, isPending } = useCreateTask();
 
-  const [formValues, setFormValues] = useState({
-    name: "",
-    description: "",
-    priority: 2,
-    status: 1,
-    department: null,
-    employee: null,
-    deadline: "",
+  const [formValues, setFormValues] = useState(() => {
+    const savedFormValues = localStorage.getItem("taskFormValues");
+    return savedFormValues
+      ? JSON.parse(savedFormValues)
+      : {
+          name: "",
+          description: "",
+          priority: 2,
+          status: 1,
+          department: null,
+          employee: null,
+          deadline: "",
+        };
   });
-
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -43,6 +47,9 @@ const CreateTask = () => {
   });
 
   console.log(errors);
+  useEffect(() => {
+    localStorage.setItem("taskFormValues", JSON.stringify(formValues));
+  }, [formValues]);
 
   const filteredEmployees = employees?.filter((employee) => employee.department.id == formValues.department);
 
@@ -99,6 +106,7 @@ const CreateTask = () => {
 
       createTask(formData, {
         onSuccess: () => {
+          localStorage.removeItem("taskFormValues");
           navigate("/");
         },
         onError: (error) => {
@@ -192,7 +200,7 @@ const CreateTask = () => {
           </DropdownWrapper>
           <Datepicker formValues={formValues} handleInputChange={handleInputChange} />
           <div className="btnSubmit">
-            <Button onClick={handleSubmit} type="submit" variant="primary">
+            <Button onClick={handleSubmit} disabled={isPending} type="submit" variant="primary">
               დავალების შექმნა
             </Button>
           </div>
