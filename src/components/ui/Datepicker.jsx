@@ -5,8 +5,8 @@ import { format, addDays } from "date-fns";
 import CalendarIcon from "../../assets/svg/calendar-line.svg?react";
 
 const Datepicker = ({ formValues, handleInputChange }) => {
+  const today = format(new Date(), "yyyy-MM-dd");
   const tomorrow = format(addDays(new Date(), 1), "yyyy-MM-dd");
-
   useEffect(() => {
     if (!formValues.deadline) {
       handleInputChange({ target: { name: "deadline", value: tomorrow } });
@@ -32,7 +32,7 @@ const Datepicker = ({ formValues, handleInputChange }) => {
           name="deadline"
           value={formValues.deadline || tomorrow}
           onChange={handleInputChange}
-          min={tomorrow}
+          min={today}
           required
         />
       </DatePickerContainer>

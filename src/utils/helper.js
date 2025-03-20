@@ -65,6 +65,8 @@ export const getDepartmentColor = (department) => {
       return "var(--color-purple)";
     case "ლოჯოსტიკის დეპარტამენტი":
       return "var(--color-blue-dark)";
+    case "ლოჯისტიკის დეპარტამენტი":
+      return "var(--color-blue-dark)";
     case "ტექნოლოგიების დეპარტამენტი":
       return "var(--color-teal)";
     case "მედიის დეპარტამენტი":

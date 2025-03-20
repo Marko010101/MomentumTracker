@@ -71,8 +71,6 @@ export async function getEmployees() {
 }
 
 export async function createEmployee(formData) {
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const response = await fetch(`${API_URL}/employees`, {
     method: "POST",
     headers: {
@@ -120,6 +118,8 @@ export async function getTask(id) {
 }
 
 export async function createTask(formData) {
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
   const response = await fetch(`${API_URL}/tasks`, {
     method: "POST",
     headers: {

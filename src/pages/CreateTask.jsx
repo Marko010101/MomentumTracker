@@ -46,7 +46,6 @@ const CreateTask = () => {
     employee: "",
   });
 
-  console.log(errors);
   useEffect(() => {
     localStorage.setItem("taskFormValues", JSON.stringify(formValues));
   }, [formValues]);

@@ -34,7 +34,6 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
     department: "",
     avatar: "",
   });
-  console.log(errors);
   const handleDepartmentSelect = (departmentId) => {
     setFormValues((prevValues) => ({
       ...prevValues,
