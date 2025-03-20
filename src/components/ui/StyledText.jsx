@@ -16,7 +16,8 @@ export const StyledText = styled.p`
     justify-content: center;
     align-items: center;
     & svg {
-      stroke: ${({ isError, isSuccess }) => (isError ? "red" : isSuccess ? "green" : "#6C757D")};
+      stroke: ${({ isError, isSuccess }) =>
+        isError ? "var(--color-red)" : isSuccess ? "var(--color-green)" : "#6C757D"};
     }
   }
 `;

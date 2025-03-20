@@ -11,6 +11,7 @@ import Loader from "./components/ui/Loader.jsx";
 const AppLayout = lazy(() => import("./components/AppLayout.jsx"));
 const TaskListPage = lazy(() => import("./pages/TaskListPage.jsx"));
 const TaskPage = lazy(() => import("./pages/TaskPage.jsx"));
+const CreateTask = lazy(() => import("./pages/CreateTask.jsx"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound.jsx"));
 
 const queryClient = new QueryClient({
@@ -31,7 +32,8 @@ function App() {
           <Routes>
             <Route element={<AppLayout />}>
               <Route path="/" index element={<TaskListPage />} />
-              <Route path="/:taskId" index element={<TaskPage />} />
+              <Route path="/:taskId" element={<TaskPage />} />
+              <Route path="/task/create" element={<CreateTask />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>

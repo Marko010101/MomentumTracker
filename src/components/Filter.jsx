@@ -2,10 +2,9 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { useDepartments } from "../hooks/useDepartments.js";
-import { usePriorities } from "../hooks/usePriorities.js";
 import { useEmployees } from "../hooks/useEmployees.js";
+import { usePriorities } from "../hooks/usePriorities.js";
 import FilterListItem from "./FilterListItem.jsx";
-import Loader from "./ui/Loader.jsx";
 
 const Filter = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -19,9 +18,10 @@ const Filter = () => {
     setOpenIndex(null);
   };
 
-  if (isLoadingDep || isLoadingPriorities || isLoadingEmp) {
-    return <Loader />;
-  }
+  // if (isLoadingDep || isLoadingPriorities || isLoadingEmp) {
+  //   return <LoaderMini />;
+  // }
+
   if (errorDep || errorPriorities || errorEmp) {
     return <p>{errorDep?.message || errorPriorities?.message || errorEmp?.message || "An error occurred."}</p>;
   }
@@ -34,6 +34,7 @@ const Filter = () => {
         data={departments}
         selectionType="multi"
         paramKey="department"
+        isLoading={isLoadingDep}
       >
         დეპარტამენტი
       </FilterListItem>
@@ -44,6 +45,7 @@ const Filter = () => {
         data={priorities}
         selectionType="multi"
         paramKey="priority"
+        isLoading={isLoadingPriorities}
       >
         პრიორიტეტი
       </FilterListItem>
@@ -54,6 +56,7 @@ const Filter = () => {
         data={employees}
         paramKey="employee"
         selectionType="single"
+        isLoading={isLoadingEmp}
       >
         თანამშრომელი
       </FilterListItem>

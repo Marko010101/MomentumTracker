@@ -26,15 +26,16 @@ const ALLOWED_IMAGE_TYPES = [
 
 const MAX_FILE_SIZE = 1024 * 600;
 
-const isNameValid = (value) => /^[a-zA-Zა-ჰ]+$/.test(value) && !/\s/.test(value);
+const isNameValid = (value) => /^[a-zA-Zა-ჰ\s]+$/.test(value);
 
-export const validateInputEmployee = (field, value) => {
+export const validationEmployee = (field, value) => {
   if (field === "name" || field === "surname") {
     const validationText = validationTextEmployee[field];
+    const trimmedValue = value.trim();
 
-    if (!value.trim() || value.length < 2) return validationText[0];
-    if (value.length > 255) return validationText[1];
-    if (!isNameValid(value)) return "მარტო ლათინური და ქართული სიმბოლოები";
+    if (trimmedValue.length < 2) return validationText[0];
+    if (trimmedValue.length > 255) return validationText[1];
+    if (!isNameValid(trimmedValue)) return validationText[2];
 
     return "";
   }

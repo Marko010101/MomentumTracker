@@ -71,6 +71,8 @@ export async function getEmployees() {
 }
 
 export async function createEmployee(formData) {
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
   const response = await fetch(`${API_URL}/employees`, {
     method: "POST",
     headers: {
@@ -114,6 +116,25 @@ export async function getTask(id) {
 
   const data = await response.json();
 
+  return data;
+}
+
+export async function createTask(formData) {
+  const response = await fetch(`${API_URL}/tasks`, {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Could not create task: ${errorData.message || response.statusText}`);
+  }
+
+  const data = await response.json();
   return data;
 }
 

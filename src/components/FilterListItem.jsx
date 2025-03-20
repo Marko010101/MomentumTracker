@@ -6,8 +6,20 @@ import ArrowUp from "../assets/svg/arrowUp.svg?react";
 import { useOutsideClick } from "../hooks/useOutsideClick.js";
 import FilterModal from "./FilterModal.jsx";
 
-function FilterListItem({ children, isOpen, onToggle, onClose, data, selectionType = "multi", paramKey }) {
+function FilterListItem({
+  children,
+  isOpen,
+  onToggle,
+  onClose,
+  data,
+  selectionType = "multi",
+  paramKey,
+  isLoading = false,
+}) {
   const ref = useOutsideClick(onClose);
+
+  // if (isLoading) return <LoaderMini color="var(--color-purple)" />;
+
   return (
     <StyledLi onClick={onToggle} isOpen={isOpen} ref={isOpen ? ref : null}>
       <ToggleText isOpen={isOpen}>
@@ -20,6 +32,7 @@ function FilterListItem({ children, isOpen, onToggle, onClose, data, selectionTy
           paramKey={paramKey}
           onClick={(e) => e.stopPropagation()}
           onClose={onToggle}
+          isLoading={isLoading}
         />
       )}
     </StyledLi>

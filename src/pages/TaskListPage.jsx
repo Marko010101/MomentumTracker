@@ -2,10 +2,10 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import Filter from "../components/Filter.jsx";
-import FiltersList from "../components/FiltersList.jsx";
-import { useTasks } from "../hooks/useTasks.js";
-import Loader from "../components/ui/Loader.jsx";
 import FilteredList from "../components/FilteredList.jsx";
+import FiltersList from "../components/FiltersList.jsx";
+import Loader from "../components/ui/Loader.jsx";
+import { useTasks } from "../hooks/useTasks.js";
 
 const TaskListPage = () => {
   const { tasks, isLoading, error } = useTasks();

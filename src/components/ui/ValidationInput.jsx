@@ -4,23 +4,35 @@ import Check from "../../assets/svg/check.svg?react";
 import { StyledText } from "./StyledText.jsx";
 import styled from "styled-components";
 import { useState } from "react";
-import { isRuleValid } from "../../utils/validationEmployee.js";
 
-const ValidationInput = ({ fieldName, inputName, type, formValues, handleInputChange, errors, validationText }) => {
+const ValidationInput = ({
+  fieldName,
+  inputName,
+  type,
+  formValues,
+  handleInputChange,
+  errors,
+  validationText,
+  includeSvgCheck = true,
+  isRequired = true,
+}) => {
   const [isTouched, setIsTouched] = useState(false);
   const validationMessages = validationText[inputName];
 
   const handleChange = (e) => {
     const value = e.target.value;
-    const filteredValue = value.replace(/[^a-zA-Zა-ჰ]/g, "");
+    const filteredValue = value.replace(/[^a-zA-Zა-ჰ\s]/g, "");
 
     setIsTouched(true);
-    handleInputChange({ target: { name: e.target.name, value: filteredValue } });
+    handleInputChange({ target: { name: e.target.name, value: value } });
   };
 
   return (
     <StyledValidationInput>
-      <p>{fieldName} *</p>
+      <h4>
+        {fieldName}
+        {isRequired ? "*" : null}
+      </h4>
       <InputText
         type={type}
         name={inputName}
@@ -32,7 +44,6 @@ const ValidationInput = ({ fieldName, inputName, type, formValues, handleInputCh
       />
       {validationMessages && Array.isArray(validationMessages) ? (
         validationMessages.map((message, index) => {
-          const isRuleSatisfied = isRuleValid(message, formValues[inputName]);
           const isMessageError = errors[inputName] === message;
           const shouldValidate = isTouched || errors[inputName];
 
@@ -40,10 +51,18 @@ const ValidationInput = ({ fieldName, inputName, type, formValues, handleInputCh
             <StyledText
               key={index}
               isError={shouldValidate && isMessageError}
-              isSuccess={shouldValidate && isRuleSatisfied && !isMessageError}
+              isSuccess={shouldValidate && !isMessageError}
             >
-              <span>{<Check />}</span>
-              {message}
+              {inputName === "description" && formValues[inputName].length < 1 ? null : (
+                <>
+                  {includeSvgCheck && (
+                    <span>
+                      <Check />
+                    </span>
+                  )}
+                  {message}
+                </>
+              )}
             </StyledText>
           );
         })
@@ -60,7 +79,7 @@ const ValidationInput = ({ fieldName, inputName, type, formValues, handleInputCh
 export default ValidationInput;
 
 const StyledValidationInput = styled.div`
-  & > p:first-child {
+  & > h4 {
     font-size: var(--font-size-mini);
     font-weight: var(--font-weight-medium);
     color: var(--color-grayish-blue);

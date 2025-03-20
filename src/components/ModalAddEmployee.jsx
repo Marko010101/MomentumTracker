@@ -6,14 +6,14 @@ import { validationTextEmployee } from "../constants/validationTextEmployee.js";
 import { useCreateEmployee } from "../hooks/useCreateEmployee.js";
 import { useDepartments } from "../hooks/useDepartments.js";
 import { useOutsideClick } from "../hooks/useOutsideClick.js";
-import { validateInputEmployee } from "../utils/validationEmployee.js";
+import { validationEmployee } from "../utils/validationEmployee.js";
 import DropdownSelect from "./DropdownSelect.jsx";
 import Button from "./ui/Button.jsx";
 import { ModalOverlay } from "./ui/ModalOverlay.jsx";
 import { StyledText } from "./ui/StyledText.jsx";
 import Upload from "./ui/Upload.jsx";
 import ValidationInput from "./ui/ValidationInput.jsx";
-import SpinnerSmall from "./ui/SpinnerSmall.jsx";
+import LoaderMini from "./ui/LoaderMini.jsx";
 
 const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
   const { mutate: createEmployee, isPending } = useCreateEmployee();
@@ -34,7 +34,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
     department: "",
     avatar: "",
   });
-
+  console.log(errors);
   const handleDepartmentSelect = (departmentId) => {
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -42,7 +42,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
     }));
     setErrors((prevErrors) => ({
       ...prevErrors,
-      department: validateInputEmployee("department", departmentId),
+      department: validationEmployee("department", departmentId),
     }));
   };
 
@@ -53,7 +53,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
       setFormValues({ ...formValues, avatar: uploadedFile });
       setErrors({
         ...errors,
-        avatar: validateInputEmployee("avatar", uploadedFile),
+        avatar: validationEmployee("avatar", uploadedFile),
       });
     } else {
       setFile(null);
@@ -71,7 +71,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    setErrors({ ...errors, [name]: validateInputEmployee(name, value) });
+    setErrors({ ...errors, [name]: validationEmployee(name, value) });
   };
 
   const handleSubmit = async (e) => {
@@ -79,7 +79,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
 
     // Validate form fields
     const newErrors = Object.keys(formValues).reduce((acc, key) => {
-      acc[key] = validateInputEmployee(key, formValues[key]);
+      acc[key] = validationEmployee(key, formValues[key]);
       return acc;
     }, {});
 
@@ -172,7 +172,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
               გაუქმება
             </Button>
             <Button variant="primary" type="submit" disabled={isPending}>
-              {isPending ? <SpinnerSmall /> : "თანამშრომლის დამატება"}
+              {isPending ? <LoaderMini /> : "თანამშრომლის დამატება"}
             </Button>
           </div>
         </form>
@@ -244,7 +244,7 @@ const DropwdownWrapper = styled.div`
     top: 1.9rem;
     left: 0;
     width: 38.4rem;
-    max-height: 22rem;
+    max-height: 20rem;
   }
   & > p {
     margin-top: 3.9rem;

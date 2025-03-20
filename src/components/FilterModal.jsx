@@ -1,13 +1,14 @@
-import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import styled, { css } from "styled-components";
 
-import { InputCheckbox } from "./ui/InputCheckbox.jsx";
-import { StyledDropdown } from "./ui/StyledDropdown.jsx";
-import Button from "./ui/Button.jsx";
 import { getDepartmentColor } from "../utils/helper.js";
+import Button from "./ui/Button.jsx";
+import { InputCheckbox } from "./ui/InputCheckbox.jsx";
+import LoaderMini from "./ui/LoaderMini.jsx";
+import { StyledDropdown } from "./ui/StyledDropdown.jsx";
 
-const FilterModal = ({ data, selectionType = "multi", paramKey, onClick, onClose }) => {
+const FilterModal = ({ data, selectionType = "multi", paramKey, onClick, onClose, isLoading }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -17,6 +18,8 @@ const FilterModal = ({ data, selectionType = "multi", paramKey, onClick, onClose
       setSelectedItems(selectionType === "multi" ? queryValue.split(",") : [queryValue]);
     }
   }, [searchParams, paramKey, selectionType]);
+
+  if (isLoading) return <LoaderMini color="var(--color-purple)" />;
 
   const handleChange = (item) => {
     setSelectedItems((prev) => {

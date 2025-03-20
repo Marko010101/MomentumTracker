@@ -8,7 +8,7 @@ export const fixedDepartmentName = (departmentName) => {
 
   const corrections = {
     ადმინისტრაციი: "ადმინისტრაცია",
-    ლოჯოსტიკი: "ლოჯოსტიკა",
+    ლოჯოსტიკი: "ლოჯისტიკა",
     მედიი: "მედია",
   };
 
@@ -18,7 +18,6 @@ export const fixedDepartmentName = (departmentName) => {
 export const formatDateToMonth = (timestamp) => {
   const months = ["იანვ", "თებ", "მარ", "აპრ", "მაი", "ივნ", "ივლ", "აგვ", "სექ", "ოქტ", "ნოე", "დეკ"];
 
-  // Ensure timestamp is in a valid format
   const date = new Date(timestamp);
   if (isNaN(date)) return "Invalid Date";
 
@@ -35,7 +34,7 @@ export function formatDateToWeekday(timestamp) {
   const date = new Date(timestamp);
   const dayOfWeek = days[date.getDay()];
   const day = date.getDate();
-  const month = date.getMonth() + 1; // Months are zero-based
+  const month = date.getMonth() + 1;
   const year = date.getFullYear();
 
   return `${dayOfWeek} - ${day}/${month}/${year}`;
@@ -76,8 +75,8 @@ export const getDepartmentColor = (department) => {
 };
 
 export const truncateString = (str) => {
-  if (str.length > 100) {
-    return str.slice(0, 100) + "...";
+  if (str?.length > 100) {
+    return str?.slice(0, 100) + "...";
   }
   return str;
 };

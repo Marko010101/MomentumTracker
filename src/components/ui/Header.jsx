@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import hourglassImage from "../../assets/img/Hourglass.png";
@@ -9,6 +9,7 @@ import ModalAddEmployee from "../ModalAddEmployee.jsx";
 
 const Header = () => {
   const [isCreateEmployeeOpen, setIsCreateEmployeeOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleEmployeeModal = () => setIsCreateEmployeeOpen((isOpen) => !isOpen);
 
@@ -23,7 +24,7 @@ const Header = () => {
           <Button onClick={handleToggleEmployeeModal} variant="secondary">
             თანამშრომლის შექმნა
           </Button>
-          <Button variant="primary">
+          <Button onClick={() => navigate("/task/create")} variant="primary">
             <span>
               <AddSvg />
             </span>

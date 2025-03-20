@@ -12,15 +12,16 @@ const spin = keyframes`
 `;
 
 const SpinnerWrapper = styled.span`
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: max-content;
+  padding: 0.3rem;
   animation: ${spin} 1s linear infinite;
   color: ${({ color }) => color};
 `;
 
-const SpinnerSmall = ({ color = "var(--color-gray)" }) => {
+const LoaderMini = ({ color = "var(--color-gray)" }) => {
   return (
     <SpinnerWrapper color={color}>
       <LuLoaderCircle />
@@ -28,4 +29,4 @@ const SpinnerSmall = ({ color = "var(--color-gray)" }) => {
   );
 };
 
-export default SpinnerSmall;
+export default LoaderMini;
