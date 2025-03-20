@@ -279,6 +279,7 @@ const DropdownWrapper = styled.div`
 
   & > p {
     margin-top: 5.4rem;
+    padding: 0rem !important;
   }
 
   & > div {
