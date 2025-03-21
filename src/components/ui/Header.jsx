@@ -56,6 +56,7 @@ const StyledHeader = styled.header`
       font-size: 3.1rem;
       line-height: 100%;
     }
+
     & > img {
       width: 3.8rem;
       height: 3.8rem;
