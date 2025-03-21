@@ -85,6 +85,7 @@ const CommentsHeader = styled.div`
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-medium);
     color: var(--color-black);
+    margin-bottom: 0.2rem;
   }
 
   & > span {
