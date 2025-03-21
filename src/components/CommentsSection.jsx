@@ -27,6 +27,7 @@ const CommentsSection = ({ taskId }) => {
       }
     );
   };
+  console.log(comments);
 
   if (isLoading) return <Loader />;
   if (error) return <p>{error.message}</p>;

@@ -24,7 +24,7 @@ const Comment = ({ comment, subComment, taskId, openCommentId, setOpenCommentId 
       {
         onSuccess: () => {
           setReplyText("");
-          setOpenCommentId(null); // Close text area after submitting
+          setOpenCommentId(null);
         },
       }
     );
@@ -37,7 +37,7 @@ const Comment = ({ comment, subComment, taskId, openCommentId, setOpenCommentId 
         <div>
           <h6>{author_nickname}</h6>
           <p>{text}</p>
-          {!hasSubComment && !isSubComment && (
+          {!isSubComment && (
             <StyledButton
               onClick={(e) => {
                 e.preventDefault();
@@ -54,14 +54,16 @@ const Comment = ({ comment, subComment, taskId, openCommentId, setOpenCommentId 
       </StyledComment>
       {hasSubComment && (
         <StyledSubComment isSubComment={isSubComment}>
-          <Comment
-            key={subComment[0].id}
-            comment={subComment[0]}
-            subComment={subComment[0].sub_comments}
-            taskId={taskId}
-            openCommentId={openCommentId}
-            setOpenCommentId={setOpenCommentId}
-          />
+          {subComment.map((reply) => (
+            <Comment
+              key={reply.id}
+              comment={reply}
+              subComment={reply.sub_comments}
+              taskId={taskId}
+              openCommentId={openCommentId}
+              setOpenCommentId={setOpenCommentId}
+            />
+          ))}
         </StyledSubComment>
       )}
       {isTextareaOpen && (
