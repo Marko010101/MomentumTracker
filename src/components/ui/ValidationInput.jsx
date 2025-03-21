@@ -1,9 +1,8 @@
 import { InputText } from "./InputText.jsx";
 
+import styled from "styled-components";
 import Check from "../../assets/svg/check.svg?react";
 import { StyledText } from "./StyledText.jsx";
-import styled from "styled-components";
-import { useState } from "react";
 
 const ValidationInput = ({
   fieldName,
@@ -16,14 +15,11 @@ const ValidationInput = ({
   includeSvgCheck = true,
   isRequired = true,
 }) => {
-  const [isTouched, setIsTouched] = useState(false);
   const validationMessages = validationText[inputName];
 
   const handleChange = (e) => {
     const value = e.target.value;
-    const filteredValue = value.replace(/[^a-zA-Zა-ჰ\s]/g, "");
 
-    setIsTouched(true);
     handleInputChange({ target: { name: e.target.name, value: value } });
   };
 
@@ -39,19 +35,17 @@ const ValidationInput = ({
         value={formValues[inputName]}
         isError={errors[inputName]}
         onChange={handleChange}
-        onBlur={() => setIsTouched(true)}
         autoComplete="off"
       />
       {validationMessages && Array.isArray(validationMessages) ? (
         validationMessages.map((message, index) => {
           const isMessageError = errors[inputName] === message;
-          const shouldValidate = isTouched || errors[inputName];
 
           return (
             <StyledText
               key={index}
-              isError={shouldValidate && isMessageError}
-              isSuccess={shouldValidate && !isMessageError}
+              isError={isMessageError}
+              isSuccess={!isMessageError && formValues[inputName].length > 0}
             >
               {inputName === "description" && formValues[inputName].length < 1 ? null : (
                 <>

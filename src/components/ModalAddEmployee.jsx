@@ -9,11 +9,11 @@ import { useOutsideClick } from "../hooks/useOutsideClick.js";
 import { validationEmployee } from "../utils/validationEmployee.js";
 import DropdownSelect from "./DropdownSelect.jsx";
 import Button from "./ui/Button.jsx";
+import LoaderMini from "./ui/LoaderMini.jsx";
 import { ModalOverlay } from "./ui/ModalOverlay.jsx";
 import { StyledText } from "./ui/StyledText.jsx";
 import Upload from "./ui/Upload.jsx";
 import ValidationInput from "./ui/ValidationInput.jsx";
-import LoaderMini from "./ui/LoaderMini.jsx";
 
 const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
   const { mutate: createEmployee, isPending } = useCreateEmployee();
@@ -34,6 +34,9 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
     department: "",
     avatar: "",
   });
+
+  console.log(errors);
+
   const handleDepartmentSelect = (departmentId) => {
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -76,7 +79,6 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form fields
     const newErrors = Object.keys(formValues).reduce((acc, key) => {
       acc[key] = validationEmployee(key, formValues[key]);
       return acc;
@@ -95,10 +97,9 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
         formData.append("avatar", formValues.avatar);
       }
 
-      // Trigger the mutation with onSuccess callback
       createEmployee(formData, {
         onSuccess: () => {
-          handleToggleEmployeeModal(); // Close the modal on success
+          handleToggleEmployeeModal();
         },
         onError: (error) => {
           console.error("Error creating employee:", error);
