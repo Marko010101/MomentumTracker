@@ -7,7 +7,6 @@ import X from "../assets/svg/x.svg?react";
 const FiltersList = ({ tasks, setTaskList }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Memoize selected filters to avoid unnecessary re-renders
   const selectedDepartments = useMemo(() => searchParams.get("department")?.split(",") || [], [searchParams]);
   const selectedPriorities = useMemo(() => searchParams.get("priority")?.split(",") || [], [searchParams]);
   const selectedEmployee = useMemo(
@@ -39,7 +38,7 @@ const FiltersList = ({ tasks, setTaskList }) => {
     } else {
       searchParams.delete(paramKey);
     }
-    setSearchParams(new URLSearchParams(searchParams)); // Ensure new object reference
+    setSearchParams(new URLSearchParams(searchParams));
   };
 
   const handleClearFilter = () => {

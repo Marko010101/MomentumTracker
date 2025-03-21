@@ -6,6 +6,7 @@ import FilteredList from "../components/FilteredList.jsx";
 import FiltersList from "../components/FiltersList.jsx";
 import Loader from "../components/ui/Loader.jsx";
 import { useTasks } from "../hooks/useTasks.js";
+import Empty from "../components/ui/Empty.jsx";
 
 const TaskListPage = () => {
   const { tasks, isLoading, error } = useTasks();
@@ -20,7 +21,7 @@ const TaskListPage = () => {
       <StyledTaskListPage>
         <Filter />
         <FiltersList tasks={tasks} setTaskList={setTaskList} />
-        <FilteredList taskList={taskList} />
+        {taskList.length ? <FilteredList taskList={taskList} /> : <Empty />}
       </StyledTaskListPage>
     </>
   );
