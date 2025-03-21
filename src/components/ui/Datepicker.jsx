@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { format, addDays } from "date-fns";
+import { format, addDays, isPast, parseISO, isToday } from "date-fns";
 
 import CalendarIcon from "../../assets/svg/calendar-line.svg?react";
 
 const Datepicker = ({ formValues, handleInputChange }) => {
   const today = format(new Date(), "yyyy-MM-dd");
   const tomorrow = format(addDays(new Date(), 1), "yyyy-MM-dd");
+
   useEffect(() => {
-    if (!formValues.deadline) {
+    if (!formValues.deadline || (isPast(parseISO(formValues.deadline)) && !isToday(parseISO(formValues.deadline)))) {
       handleInputChange({ target: { name: "deadline", value: tomorrow } });
     }
-  }, [formValues, handleInputChange, tomorrow]);
+  }, [formValues.deadline, handleInputChange, tomorrow]);
 
   const handleIconClick = () => {
     const dateInput = document.getElementById("datepicker");
