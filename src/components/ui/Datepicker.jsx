@@ -24,7 +24,7 @@ const Datepicker = ({ formValues, handleInputChange }) => {
 
   return (
     <StyledDatepicker htmlFor="datepicker">
-      <h4>დედლაინი*</h4>
+      <h4>Deadline*</h4>
       <DatePickerContainer>
         <CalendarIcon onClick={handleIconClick} />
         <input

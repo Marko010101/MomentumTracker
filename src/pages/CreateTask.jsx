@@ -46,8 +46,6 @@ const CreateTask = () => {
     employee: "",
   });
 
-  console.log(errors);
-
   useEffect(() => {
     localStorage.setItem("taskFormValues", JSON.stringify(formValues));
   }, [formValues]);
@@ -119,12 +117,12 @@ const CreateTask = () => {
 
   return (
     <StyledCreteTask>
-      <h1>შექმენი ახალი დავალება</h1>
+      <h1>Create a New Task</h1>
       <form>
         <div>
           <StyledInputBox>
             <ValidationInput
-              fieldName="სათაური"
+              fieldName="Title"
               inputName="name"
               type="text"
               formValues={formValues}
@@ -137,7 +135,7 @@ const CreateTask = () => {
           </StyledInputBox>
           <StyledInputBox isDescription={true}>
             <ValidationInput
-              fieldName="აღწერა"
+              fieldName="Description"
               inputName="description"
               type="textarea"
               formValues={formValues}
@@ -150,21 +148,23 @@ const CreateTask = () => {
           </StyledInputBox>
           <DropdownWrapper>
             <div>
-              <h4>პრიორიტეტი*</h4>
+              <h4>Priority*</h4>
               <DropdownSelect
                 handleAction={handleDropdownChange("priority")}
                 data={priorities}
                 defaultValue={formValues.priority}
                 isPending={isLoadingPriorities}
+                type="priority"
               />
             </div>
             <div>
-              <h4>სტატუსი*</h4>
+              <h4>Status*</h4>
               <DropdownSelect
                 handleAction={handleDropdownChange("status")}
                 data={statuses}
                 defaultValue={formValues.status}
                 isPending={isLoadingStatuses}
+                type="status"
               />
             </div>
           </DropdownWrapper>
@@ -172,13 +172,14 @@ const CreateTask = () => {
         <div>
           <DropdownWrapper>
             <div className="colExpand">
-              <h4>დეპარტამენტი*</h4>
+              <h4>Department*</h4>
               <DropdownSelect
                 handleAction={handleDropdownChange("department")}
                 data={departments}
                 defaultValue={formValues.department}
                 isPending={isLoadingDepartments}
-                defaultText="აირჩიეთ დეპარტამენტი"
+                defaultText="Select Department"
+                type="department"
               />
             </div>
             {errors.department && <StyledText isError={true}>{errors.department}</StyledText>}
@@ -186,14 +187,15 @@ const CreateTask = () => {
           <DropdownWrapper className="mt-sm p-sm">
             {formValues.department ? (
               <div className="colExpand">
-                <h4>პასუხისმგებელი თანამშრომელი*</h4>
+                <h4>Responsible Employee*</h4>
                 <DropdownSelect
                   handleAction={handleDropdownChange("employee")}
                   data={filteredEmployees}
                   defaultValue={formValues.employee}
-                  defaultText="აირჩიეთ თანამშრომელი"
+                  defaultText="Select Employee"
                   key={formValues.department}
                   handleToggleEmployeeModal={handleToggleEmployeeModal}
+                  type="employee"
                 />
               </div>
             ) : null}
@@ -202,7 +204,7 @@ const CreateTask = () => {
           <Datepicker formValues={formValues} handleInputChange={handleInputChange} />
           <div className="btnSubmit">
             <Button onClick={handleSubmit} disabled={isPending} type="submit" variant="primary">
-              დავალების შექმნა
+              Create Task
             </Button>
           </div>
         </div>
@@ -211,7 +213,6 @@ const CreateTask = () => {
     </StyledCreteTask>
   );
 };
-
 export default CreateTask;
 
 const StyledCreteTask = styled.div`

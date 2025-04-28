@@ -47,7 +47,7 @@ const Comment = ({ comment, subComment, taskId, openCommentId, setOpenCommentId 
               <span>
                 <ArrowLeft />
               </span>
-              უპასუხე
+              Answer
             </StyledButton>
           )}
         </div>
@@ -73,7 +73,7 @@ const Comment = ({ comment, subComment, taskId, openCommentId, setOpenCommentId 
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
             isPending={isPending}
-            placeholder="დაწერე პასუხი"
+            placeholder="Write an answer"
           />
         </TextAreaWrapper>
       )}

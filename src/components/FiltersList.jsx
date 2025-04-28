@@ -73,7 +73,7 @@ const FiltersList = ({ tasks, setTaskList }) => {
           </p>
         ))}
 
-        {isAnyFilter && <span onClick={handleClearFilter}>გასუფთავება</span>}
+        {isAnyFilter && <span onClick={handleClearFilter}>Clear Filters</span>}
       </StyledFilteredQueries>
     </>
   );

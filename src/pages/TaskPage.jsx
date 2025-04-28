@@ -9,6 +9,7 @@ import PriorityDepartmentBadge from "../components/ui/PriorityDepartmentBadge.js
 import { StyledBadge } from "../components/ui/StyledBadge.jsx";
 import { useTask } from "../hooks/useTask.js";
 import { getDepartmentColor, getPriorityColor } from "../utils/helper.js";
+import { DEPARTMENTS } from "../constants/DEPARTMENTS.js";
 
 const TaskPage = () => {
   const { taskId } = useParams();
@@ -43,7 +44,7 @@ const TaskPage = () => {
             <PriorityDepartmentBadge
               priorityIcon={icon}
               priorityName={priorityName}
-              departmentName={departmentName}
+              departmentName={DEPARTMENTS[departmentName]}
               isDepartmentNameFixed={false}
             />
           </CustomStyledBadge>

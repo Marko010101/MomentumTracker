@@ -17,7 +17,7 @@ const TaskListPage = () => {
 
   return (
     <>
-      <h1>დავალებების გვერდი</h1>
+      <h1>Tasks page</h1>
       <StyledTaskListPage>
         <Filter />
         <FiltersList tasks={tasks} setTaskList={setTaskList} />

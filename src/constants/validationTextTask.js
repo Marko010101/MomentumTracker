@@ -1,6 +1,6 @@
 export const validationTextTask = {
-  name: ["მინიმუმ 3 სიმბოლო", "მაქსიმუმ 255 სიმბოლო"],
-  description: ["მინიმუმ 4 სიტყვა", "მაქსიმუმ 255 სიმბოლო"],
-  department: "აირჩიეთ დეპარტამენტი",
-  employee: "აირჩიეთ ან შექმენით თანამშრომელი",
+  name: ["Minimum 3 characters", "Maximum 255 characters"],
+  description: ["Minimum 4 words", "Maximum 255 characters"],
+  department: "Select a department",
+  employee: "Select or create an employee",
 };

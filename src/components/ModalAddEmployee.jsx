@@ -35,8 +35,6 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
     avatar: "",
   });
 
-  console.log(errors);
-
   const handleDepartmentSelect = (departmentId) => {
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -114,11 +112,11 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
         <span onClick={handleToggleEmployeeModal}>
           <CloseX />
         </span>
-        <h3 className="TextBolder">თანამშრომლის დამატება</h3>
+        <h3 className="TextBolder">Add Employee</h3>
         <form onSubmit={handleSubmit}>
           <div>
             <ValidationInput
-              fieldName="სახელი"
+              fieldName="First Name"
               inputName="name"
               type="text"
               formValues={formValues}
@@ -127,7 +125,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
               validationText={validationTextEmployee}
             />
             <ValidationInput
-              fieldName="გვარი"
+              fieldName="Last Name"
               inputName="surname"
               type="text"
               formValues={formValues}
@@ -138,7 +136,7 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
           </div>
           <div className="grid-col">
             <StyledLabel htmlFor="file-upload" className="TextBolder">
-              ავატარი *
+              Avatar *
             </StyledLabel>
             <Upload
               value={file}
@@ -157,22 +155,23 @@ const ModalAddEmployee = ({ handleToggleEmployeeModal }) => {
           </div>
           <div>
             <DropwdownWrapper isError={errors.department}>
-              <StyledLabel htmlFor="department">დეპარტამენტი *</StyledLabel>
+              <StyledLabel htmlFor="department">Department *</StyledLabel>
               <DropdownSelect
                 data={departments}
-                defaultText="აირჩიეთ დეპარტამენტი"
+                defaultText="Select Department"
                 handleAction={handleDepartmentSelect}
                 isError={errors.department}
+                type="department"
               />
               {errors.department && <StyledText isError={true}>{errors.department}</StyledText>}
             </DropwdownWrapper>
           </div>
           <div>
             <Button variant="secondary" type="button" onClick={handleToggleEmployeeModal}>
-              გაუქმება
+              Cancel
             </Button>
             <Button variant="primary" type="submit" disabled={isPending}>
-              {isPending ? <LoaderMini /> : "თანამშრომლის დამატება"}
+              {isPending ? <LoaderMini /> : "Add Employee"}
             </Button>
           </div>
         </form>

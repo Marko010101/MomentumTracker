@@ -9,6 +9,8 @@ import { useStatuses } from "../hooks/useStatuses.js";
 import { useUpdateStatus } from "../hooks/useUpdateStatus.js";
 import { formatDateToWeekday } from "../utils/helper.js";
 import DropdownSelect from "./DropdownSelect.jsx";
+import { STATUSES } from "../constants/STATUSES.js";
+import { DEPARTMENTS } from "../constants/DEPARTMENTS.js";
 
 const TaskDetails = ({ avatar, departmentName, employeeFullName, due_date, statusName, taskId }) => {
   const { statuses, isLoading, error } = useStatuses();
@@ -32,19 +34,19 @@ const TaskDetails = ({ avatar, departmentName, employeeFullName, due_date, statu
 
   return (
     <Details>
-      <h3>დავალების დეტალები</h3>
+      <h3>Task Details</h3>
       <ul>
         <li>
           <PieChart />
-          <span>სტატუსი</span>
+          <span>Status</span>
         </li>
         <li>
           <Employee />
-          <span>თანამშრომელი</span>
+          <span>Employee</span>
         </li>
         <li>
           <Calendar />
-          <span>დავალების ვადა</span>
+          <span>Task Due Date</span>
         </li>
       </ul>
       <ul>
@@ -53,15 +55,16 @@ const TaskDetails = ({ avatar, departmentName, employeeFullName, due_date, statu
             <DropdownSelect
               handleAction={handleStatusChange}
               data={statuses}
-              defaultText={statusName}
+              defaultText={STATUSES[statusName]}
               isPending={isPending}
+              type="status"
             />
           </div>
         </li>
         <StyledEmployeeLi>
           <img src={avatar} alt="Employee image" />
           <div>
-            <span>{departmentName}</span>
+            <span>{DEPARTMENTS[departmentName]}</span>
             <p>{employeeFullName}</p>
           </div>
         </StyledEmployeeLi>

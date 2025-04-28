@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import TaskCard from "./TaskCard";
 import { STATUS_COLORS } from "../constants/STATUS_COLORS.js";
+import { STATUSES } from "../constants/STATUSES.js";
 
 const FilteredList = ({ taskList }) => {
   const categorizedTasks = {
@@ -14,7 +15,7 @@ const FilteredList = ({ taskList }) => {
     <StyledList>
       {Object.entries(categorizedTasks).map(([status, tasks]) => (
         <TaskColumn key={status}>
-          <StyledH3 status={status}>{status}</StyledH3>
+          <StyledH3 status={status}>{STATUSES[status]}</StyledH3>
           {tasks.map((task) => (
             <TaskCard key={task.id} task={task} color={STATUS_COLORS[status].color} />
           ))}

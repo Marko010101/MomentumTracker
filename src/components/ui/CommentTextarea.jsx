@@ -21,7 +21,7 @@ const CommentTextarea = ({ onSubmit, value, onChange, isPending, placeholder }) 
         isPending={isPending}
       />
       <StyledButton type="submit" variant="primary" disabled={isPending}>
-        {isPending ? "დაელოდეთ..." : "დააკომენტარე"}
+        {isPending ? "Please wait..." : "Comment"}
       </StyledButton>
     </WrapperForm>
   );

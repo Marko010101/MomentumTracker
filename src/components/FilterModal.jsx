@@ -7,6 +7,8 @@ import Button from "./ui/Button.jsx";
 import { InputCheckbox } from "./ui/InputCheckbox.jsx";
 import LoaderMini from "./ui/LoaderMini.jsx";
 import { StyledDropdown } from "./ui/StyledDropdown.jsx";
+import { DEPARTMENTS } from "../constants/DEPARTMENTS.js";
+import { PRIORITY } from "../constants/PRIORITY.js";
 
 const FilterModal = ({ data, selectionType = "multi", paramKey, onClick, onClose, isLoading }) => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -56,13 +58,13 @@ const FilterModal = ({ data, selectionType = "multi", paramKey, onClick, onClose
             checked={selectedItems.includes(item.name)}
           />
           {paramKey === "employee" ? <img src={item.avatar} alt={item.name} /> : null}
-          <span>
-            {item.name} {item.surname}
-          </span>
+          <span>{paramKey === "department" && DEPARTMENTS[item.name]}</span>
+          <span>{paramKey === "priority" && PRIORITY[item.name]}</span>
+          <span>{paramKey === "employee" && `${item?.name} ${item?.surname}`}</span>
         </label>
       ))}
       <StyledButton variant="primary" p="0.8rem 1.4rem" onClick={saveSelection}>
-        არჩევა
+        Select
       </StyledButton>
     </StyledDropdownCheckbox>
   );

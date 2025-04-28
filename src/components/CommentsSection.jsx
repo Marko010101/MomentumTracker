@@ -27,7 +27,6 @@ const CommentsSection = ({ taskId }) => {
       }
     );
   };
-  console.log(comments);
 
   if (isLoading) return <Loader />;
   if (error) return <p>{error.message}</p>;
@@ -43,10 +42,10 @@ const CommentsSection = ({ taskId }) => {
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
         isPending={isPending}
-        placeholder="დაწერე კომენტარი"
+        placeholder="Write a comment"
       />
       <CommentsHeader>
-        <h5>კომენტარები</h5>
+        <h5>Comments</h5>
         <span>{commentsLength}</span>
       </CommentsHeader>
       <CommentsBox>
@@ -64,7 +63,6 @@ const CommentsSection = ({ taskId }) => {
     </StyledComments>
   );
 };
-
 export default CommentsSection;
 
 const StyledComments = styled.section`

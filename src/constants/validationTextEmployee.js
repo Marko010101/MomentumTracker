@@ -1,7 +1,7 @@
 export const validationTextEmployee = {
-  name: ["მინიმუმ 2 სიმბოლო", "მაქსიმუმ 255 სიმბოლო", "მარტო ლათინური და ქართული სიმბოლოები"],
-  surname: ["მინიმუმ 2 სიმბოლო", "მაქსიმუმ 255 სიმბოლო", "მარტო ლათინური და ქართული სიმბოლოები"],
-  avatar: "ფოტო სავალდებულოა",
-  size: "მაქსიმალური ზომა 600kb",
-  departmentRequired: "აირჩიეთ დეპარტამენტი",
+  name: ["Minimum 2 characters", "Maximum 255 characters", "Only Latin and Georgian letters allowed"],
+  surname: ["Minimum 2 characters", "Maximum 255 characters", "Only Latin and Georgian letters allowed"],
+  avatar: "Photo is required",
+  size: "Maximum size 600KB",
+  departmentRequired: "Select a department",
 };

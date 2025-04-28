@@ -7,6 +7,9 @@ import AddCircle from "../assets/svg/addCircle.svg?react";
 
 import { useOutsideClick } from "../hooks/useOutsideClick.js";
 import LoaderMini from "./ui/LoaderMini.jsx";
+import { STATUSES } from "../constants/STATUSES.js";
+import { PRIORITY } from "../constants/PRIORITY.js";
+import { DEPARTMENTS } from "../constants/DEPARTMENTS.js";
 
 const DropdownSelect = ({
   handleAction,
@@ -16,6 +19,7 @@ const DropdownSelect = ({
   isPending = false,
   isError = false,
   handleToggleEmployeeModal,
+  type,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +28,6 @@ const DropdownSelect = ({
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [selectedSurname, setSelectedSurname] = useState(null);
   const dropdownRef = useOutsideClick(() => setIsOpen(false));
-
   useEffect(() => {
     if (data && data.length > 0) {
       const defaultItem = data.find((item) => item.id === defaultValue);
@@ -56,18 +59,26 @@ const DropdownSelect = ({
     <StyledDropdown ref={dropdownRef} isOpen={isOpen} isPending={isPending} isError={isError} isAvatar={selectedAvatar}>
       <ul>
         <p className="flex-gap" onClick={handleToggle}>
-          {selectedAvatar && <img className="img-avatar" src={selectedAvatar} alt={`avatar of ${selectedItem}`} />}
           {selectedIcon && <img src={selectedIcon} alt="Icon" />}
-          {selectedItem} {selectedSurname && selectedSurname}
+          {type === "status" && STATUSES[selectedItem]}
+          {type === "priority" && PRIORITY[selectedItem]}
+          {type === "department" && DEPARTMENTS[selectedItem]}
+
+          {type === "employee" && (
+            <>
+              {selectedAvatar && <img className="img-avatar" src={selectedAvatar} alt={`avatar of ${selectedItem}`} />}
+              {selectedItem} {selectedSurname}
+            </>
+          )}
           {!selectedItem && !selectedSurname && defaultText}
           <span>{isPending ? <LoaderMini color="var(--color-purple)" /> : isOpen ? <ArrowUp /> : <ArrowDown />}</span>
         </p>
 
         {isOpen && !isPending && (
           <>
-            {defaultText === "აირჩიეთ თანამშრომელი" && (
-              <StyledAddBtn onClick={handleToggleEmployeeModal} className="create-employee-option">
-                <AddCircle /> თანამშრომლის შექმნა
+            {defaultText === "Select Employee" && (
+              <StyledAddBtn onClick={handleToggleEmployeeModal}>
+                <AddCircle /> Create employee
               </StyledAddBtn>
             )}
             {data.length > 0 &&
@@ -77,9 +88,21 @@ const DropdownSelect = ({
                   key={item.id}
                   onClick={() => handleSelect(item.id, item.name, item.icon, item.avatar, item.surname)}
                 >
-                  {item?.icon && <img src={item.icon} alt="Icon" />}
-                  {item?.avatar && <img className="img-avatar" src={item.avatar} alt={`avatar of ${item.name}`} />}
-                  {item.name} {item.surname}
+                  {type === "status" && STATUSES[item.name]}
+                  {type === "department" && DEPARTMENTS[item.name]}
+                  {type === "priority" && (
+                    <>
+                      {item?.icon && <img src={item.icon} alt="Icon" />}
+                      {PRIORITY[item.name]}
+                    </>
+                  )}
+
+                  {type === "employee" && (
+                    <>
+                      {item.avatar && <img className="img-avatar" src={item.avatar} alt={`avatar of ${item.name}`} />}
+                      {item?.name} {item?.surname}
+                    </>
+                  )}
                 </li>
               ))}
           </>

@@ -152,6 +152,9 @@ const CardFooter = styled.div`
 `;
 
 const CustomStyledBadge = styled(StyledBadge)`
+  h4 {
+    padding: 0 0.5rem;
+  }
   & > div {
     padding: 0.4rem;
   }

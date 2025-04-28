@@ -36,7 +36,7 @@ const Filter = () => {
         paramKey="department"
         isLoading={isLoadingDep}
       >
-        დეპარტამენტი
+        Department
       </FilterListItem>
       <FilterListItem
         isOpen={openIndex === 1}
@@ -47,7 +47,7 @@ const Filter = () => {
         paramKey="priority"
         isLoading={isLoadingPriorities}
       >
-        პრიორიტეტი
+        Priority
       </FilterListItem>
       <FilterListItem
         isOpen={openIndex === 2}
@@ -58,7 +58,7 @@ const Filter = () => {
         selectionType="single"
         isLoading={isLoadingEmp}
       >
-        თანამშრომელი
+        Employee
       </FilterListItem>
     </StyledUl>
   );

@@ -2,21 +2,11 @@ export const fixedDepartmentName = (departmentName) => {
   let nameParts = departmentName.split(" ");
   let fixedName = nameParts.slice(0, -1).join(" ");
 
-  if (fixedName.endsWith("ს")) {
-    fixedName = fixedName.slice(0, -1);
-  }
-
-  const corrections = {
-    ადმინისტრაციი: "ადმინისტრაცია",
-    ლოჯოსტიკი: "ლოჯისტიკა",
-    მედიი: "მედია",
-  };
-
-  return corrections[fixedName] || fixedName;
+  return fixedName;
 };
 
 export const formatDateToMonth = (timestamp) => {
-  const months = ["იანვ", "თებ", "მარ", "აპრ", "მაი", "ივნ", "ივლ", "აგვ", "სექ", "ოქტ", "ნოე", "დეკ"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   const date = new Date(timestamp);
   if (isNaN(date)) return "Invalid Date";
@@ -29,7 +19,7 @@ export const formatDateToMonth = (timestamp) => {
 };
 
 export function formatDateToWeekday(timestamp) {
-  const days = ["კვი", "ორშ", "სამ", "ოთხ", "ხუთ", "პარ", "შაბ"];
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const date = new Date(timestamp);
   const dayOfWeek = days[date.getDay()];

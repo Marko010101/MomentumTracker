@@ -95,7 +95,7 @@ const Upload = ({ value, onChange, handleDelete, name, isError, setError }) => {
       <label htmlFor={name}>
         <Galery />
         <input id={name} type="file" accept=".png, .jpg, .jpeg, .webp, .avif" onChange={onFileChange} />
-        <span>ატვირთე ფოტო</span>
+        <span>Upload Avatar</span>
       </label>
     </FileUploadWrapper>
   );

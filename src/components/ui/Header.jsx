@@ -22,13 +22,13 @@ const Header = () => {
         </Link>
         <div>
           <Button onClick={handleToggleEmployeeModal} variant="secondary">
-            თანამშრომლის შექმნა
+            Create Employee
           </Button>
           <Button onClick={() => navigate("/task/create")} variant="primary">
             <span>
               <AddSvg />
             </span>
-            შექმენი ახალი დავალება
+            Create Task
           </Button>
         </div>
       </StyledHeader>
